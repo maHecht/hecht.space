@@ -1,0 +1,75 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/{{- .Params.slideOptions.theme | default "simple" -}}.min.css"
+  id="theme"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/monokai.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atelier-cave-light.min.css"
+  integrity="sha512-fNprY9f5BGeuC3KYaGc0+fAke3ZIFpsUXTMsqg2Bi2c7F/ktzTnutNkzNmq3izYkr2ke+/pyBpNsZbk1tA9OZw=="
+  crossorigin="anonymous"
+/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-pointer@0.1.0/dist/pointer.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-drawer@0.1.2/dist/drawer.css" />
+
+<div class="reveal">
+  <div class="slides">
+    <section
+        data-markdown
+        {{ range $key, $value := .Params.slideOptions.presentationOptions }}{{ printf "%s=\"%v\"\n" $key $value | safeHTMLAttr -}}{{ end }}
+      >
+      {{ .RawContent }}
+    </section>
+  </div>
+  <!-- .slides -->
+</div>
+<!-- .reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/zoom/zoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/search/search.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/math/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/notes/notes.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js-pointer@0.1.0/dist/pointer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js-drawer@0.1.2/dist/drawer.js"></script>
+
+<script>
+  Reveal.initialize({
+    {{ range .Params.slideOptions.revealOptions }}{{ printf "%s: %v," .key .value | safeJS -}}{{ end }}
+
+    // IMPORTANT: The order matters!
+    // So, RevealHightlight must be the LAST to load
+    plugins: [
+      RevealPointer,
+      RevealDrawer,
+      RevealZoom,
+      RevealSearch,
+      RevealMarkdown,
+      RevealMath,
+      RevealNotes,
+      RevealHighlight
+    ],
+    dependencies: [
+      { src: '//cdn.jsdelivr.net/npm/reveal-plantuml@1.0.2' },
+    ]
+  });
+</script>
+
+<style>
+  .reveal>.overlay.overlay-help .viewport table {
+    color: #fff !important;
+  }
+</style>
